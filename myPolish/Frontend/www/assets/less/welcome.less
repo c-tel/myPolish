@@ -1,0 +1,166 @@
+@footer-height: 45px;
+
+.container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+
+  .navbar {
+    margin: 0;
+    //background-color: rgba(0, 89, 86, 0.7);
+    background-color: #341509;
+    //background-color: #005960;
+    border: 0;
+    .navbar-brand {
+      opacity: 1;
+      padding: 0;
+    }
+    .top-learn {
+      display: none;
+    }
+  }
+  .panel-default {
+    overflow-y: auto;
+    margin: 0!important;
+    border: 0;
+    height: 100%;
+
+    .panel-body:before {
+      content: '';
+      display: inline-block;
+      height: 100%;
+      vertical-align: middle;
+    }
+
+    .panel-body {
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: @footer-height;
+      width: 100%;
+      margin: 0;
+      //background-color: #fcfff6;
+      background-color: #dbfff4;
+
+      .row{
+        width: 100%;
+        vertical-align: middle;
+        display: inline-block;
+
+        .lets-learn {
+          letter-spacing: 1px;
+          word-spacing: 5px;
+          font-family: 'Sofia';
+          color: #ff6a46;
+          -ms-transform: rotate(-20deg); /* IE 9 */
+          -webkit-transform: rotate(-20deg); /* Safari */
+          transform: rotate(-20deg);
+        }
+        .card-container {
+          position: relative;
+          -webkit-perspective: 800px;
+          perspective: 800px;
+
+          #card {
+            position: relative;
+            -webkit-transition: -webkit-transform 1s;
+            transition: transform 0.5s;
+            -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+            #welcome {
+              font-family: 'Berkshire Swash', cursive;
+              padding-bottom: 10px;
+              color: #ff6a46;
+            }
+            .fa{
+              color: #FD4D0C;
+            }
+            .fa-facebook-f{
+              padding: 10px 12px 10px 12px;
+              border: 1px solid #B84014;
+              border-radius: 50%;
+              margin-right: 10px;
+            }
+            .fa-twitter{
+              margin-left: 10px;
+              padding: 10px 9px 10px 9px;
+              border: 1px solid #B84014;
+              border-radius: 50%;
+            }
+            figure {
+              display: block;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              -webkit-backface-visibility: hidden;
+              backface-visibility: hidden;
+
+              .sign-in{
+                background-color: #B84014;
+                color: white;
+              }
+              .fliper-btn {
+                color: #448D76;
+              }
+            }
+            .back {
+              -webkit-transform: rotateY(180deg);
+              transform: rotateY(180deg);
+              #signUp {
+                background-color: #B84014;
+                color: white;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .panel-footer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: @footer-height;
+      border-radius: 0;
+      margin: 0;
+      //background-color: #1b8fa1;
+      //background-color: #12554e;
+      background-color: #341509;
+      color: white;
+      text-align: center;
+        font-size: 15px;
+    }
+  }
+
+  #card.flipped {
+    -webkit-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .lets-learn {
+    font-size: 26px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .lets-learn {
+    display: none;
+  }
+  .panel-footer {
+    font-size: 12px!important;
+  }
+  .top-learn {
+    padding-top: 5px;
+    padding-left: 15px;
+    color: #D4F7EC;
+    display: block!important;
+    text-align: center;
+  }
+}
