@@ -1,5 +1,9 @@
 $(function() {
 
+var Templates = require('./Templates');
+
+$('.main-container').append(Templates.test({username:'user'}));
+
     $('.fliper-btn').click(function () {
         var card = $('#card');
 
