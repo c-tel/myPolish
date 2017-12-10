@@ -35,11 +35,11 @@ class Word(models.Model):
 	pl = models.CharField(max_length=32)
 	uk = models.CharField(max_length=32)
 	transcript = models.CharField(max_length=32)
-	related_lesson = models.ForeignKey(Lesson)
+	related_lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
 
 class GrammarRule(models.Model):
 	src = models.CharField(max_length=32)
-	related_lesson = models.ForeignKey(Lesson)
+	related_lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
 
 class Test(models.Model):
 	num = models.IntegerField(primary_key=True)
