@@ -1,0 +1,45 @@
+// var API_URL = "http://localhost:5050";
+
+function backendGet(url, callback) {
+    $.ajax({
+        headers: {
+            'X-CSRFToken' : $('.csrf').text()
+        },
+        url: url,
+        type: 'GET',
+        success: function(data){
+            callback(null, data);
+        },
+        error: function() {
+            callback(new Error("Ajax Failed"));
+        }
+    })
+}
+
+function backendPost(url, data, callback) {
+    $.ajax({
+        headers: {
+            'X-CSRFToken' : $('.csrf').text()
+        },
+        url: url,
+        type: 'POST',
+        contentType : 'application/json',
+        dataType : 'json',
+        data: JSON.stringify(data),
+        success: function(data){
+            callback(null, data);
+        },
+        error: function() {
+            callback(new Error("Ajax Failed"));
+        }
+    })
+}
+
+exports.backendPost = backendPost;
+// exports.getPizzaList = function(callback) {
+//     backendGet("/api/get-pizza-list/", callback);
+// };
+//
+// exports.createOrder = function(order_info, callback) {
+//     backendPost("/api/create-order/", order_info, callback);
+// };

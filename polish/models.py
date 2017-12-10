@@ -24,7 +24,7 @@ class SessionManager(models.Manager):
 	
 class Session(models.Model):
 	key = models.CharField(unique=True, max_length=64)
-	user = models.ForeignKey(User)
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	objects = SessionManager()
 
 class Lesson(models.Model):

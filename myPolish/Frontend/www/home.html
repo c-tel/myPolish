@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
     <!-- my LESS -->
-    <link rel="stylesheet/less" type="text/css" href="/static/home.less" />
+    <link rel="stylesheet/less" type="text/css" href="/static/home.less?124" />
     <!--<link rel="stylesheet/less" type="text/css" href="assets/less/home.less"/>-->
     <!-- LESS JavaScript компілятор -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.7.2/less.min.js"></script><title>MyPolish</title>
@@ -25,6 +25,7 @@
 <body>
 
 <div class="content">
+    <!--vertical menu-->
     <nav class="vertical-menu blue" id="mySidebar">
         <div class="logo-container">
             <!--<img class="logo" src="assets/images/Project-Drawing-orange.png">-->
@@ -37,8 +38,17 @@
             <a href="#" id="exit">Вийти</a>
         </div>
     </nav>
+    <!--small top menu-->
+    <header class="top-menu">
+        <span class="logo-container">
+            <!--<img class="logo" src="assets/images/Project-Drawing-orange.png">-->
+            <img class="logo" src="/static/Project-Drawing-orange.png">
+        </span>
+        <a href="javascript:void(0)" class="bar-button" onclick=""><i class="fa fa-bars fa-2x"></i></a>
+    </header>
+    <!--main-->
     <div class="main-container">
-        <header><h1 class="brown text-center">Уроки</h1></header>
+        <div id="template"></div>
     </div>
 
 </div>
@@ -48,7 +58,7 @@
 <!--bootstrap-->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!--my js-->
-<script type="text/javascript" src="/static/index.js?123"> </script>
+<script type="text/javascript" src="/static/index.js?136"> </script>
 <!--<script type="text/javascript" src="../../index.js"> </script>-->
 </body>
 </html>

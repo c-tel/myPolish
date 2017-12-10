@@ -12,5 +12,7 @@ class AuthMiddleware(object):
 			request.session = session
 		except Session.DoesNotExist:
 			request.user = None
+			request.session = None
 		response = self.get_response(request)
+		response['Cache-Control'] = 'no-cache, no-store, must-revalidate'
 		return response
