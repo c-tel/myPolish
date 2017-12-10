@@ -1,8 +1,10 @@
 $(function() {
 
-var Templates = require('./Templates');
+    var Lessons = require("./lessons");
+    var API = require('./API');
+    Lessons.initialiseLessons();
 
-$('.main-container').append(Templates.test({username:'user'}));
+
 
     $('.fliper-btn').click(function () {
         var card = $('#card');
@@ -26,7 +28,7 @@ $('.main-container').append(Templates.test({username:'user'}));
             'username' : login,
             'password' : pwd
         };
-        backendPost('/signup/' ,data, function (err, data) {
+        API.backendPost('/signup/' ,data, function (err, data) {
             if(!err){
                 if(data.status==="ok")
                     window.location.href = "/home";
@@ -44,7 +46,7 @@ $('.main-container').append(Templates.test({username:'user'}));
             'username' : login,
             'password' : pwd
         };
-        backendPost('/login/', data, function (err, data) {
+        API.backendPost('/login/', data, function (err, data) {
             if(!err){
                 if(data.status==="ok")
                     window.location.href = "/home";
@@ -60,7 +62,7 @@ $('.main-container').append(Templates.test({username:'user'}));
 
     $('#exit').on('click',function () {
         alert("");
-       backendPost('/logout/', null,function () {
+       API.backendPost('/logout/', null,function () {
            window.location.href='/welcome';
        })
     });
@@ -68,7 +70,7 @@ $('.main-container').append(Templates.test({username:'user'}));
         var data = {
             username : username
         };
-        backendPost('/validate_username/',data, function (err, data) {
+        API.backendPost('/validate_username/',data, function (err, data) {
             if(!err){
                 var danger = $('.danger');
                 if(!data.valid)
@@ -82,22 +84,5 @@ $('.main-container').append(Templates.test({username:'user'}));
     }
 
 
-    function backendPost(url, data, callback) {
-        $.ajax({
-            headers: {
-                'X-CSRFToken' : $('.csrf').text()
-            },
-            url: url,
-            type: 'POST',
-            contentType : 'application/json',
-            dataType : 'json',
-            data: JSON.stringify(data),
-            success: function(data){
-                callback(null, data);
-            },
-            error: function() {
-                callback(new Error("Ajax Failed"));
-            }
-        })
-    }
+
 });

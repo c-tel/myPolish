@@ -1,12 +1,121 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+// var API_URL = "http://localhost:5050";
+
+function backendGet(url, callback) {
+    $.ajax({
+        headers: {
+            'X-CSRFToken' : $('.csrf').text()
+        },
+        url: url,
+        type: 'GET',
+        success: function(data){
+            callback(null, data);
+        },
+        error: function() {
+            callback(new Error("Ajax Failed"));
+        }
+    })
+}
+
+function backendPost(url, data, callback) {
+    $.ajax({
+        headers: {
+            'X-CSRFToken' : $('.csrf').text()
+        },
+        url: url,
+        type: 'POST',
+        contentType : 'application/json',
+        dataType : 'json',
+        data: JSON.stringify(data),
+        success: function(data){
+            callback(null, data);
+        },
+        error: function() {
+            callback(new Error("Ajax Failed"));
+        }
+    })
+}
+
+exports.backendPost = backendPost;
+// exports.getPizzaList = function(callback) {
+//     backendGet("/api/get-pizza-list/", callback);
+// };
+//
+// exports.createOrder = function(order_info, callback) {
+//     backendPost("/api/create-order/", order_info, callback);
+// };
+
+},{}],2:[function(require,module,exports){
 
 var ejs = require('ejs');
 
-exports.test = ejs.compile("<div>\r\n    <%= username%>\r\n</div>");
-},{"ejs":4}],2:[function(require,module,exports){
-$(function() {
+exports.Lessons_Map = ejs.compile("<div id=\"lessons\">\r\n    <header id=\"header-title\"><h1 class=\"brown text-center\"><%= title%></h1></header>\r\n    <div class=\"row\">\r\n        <div class=\"col-xs-offset-4 col-xs-8 col-sm-offset-7 col-sm-5\"><h6 id=\"rules-title\">Щоб відкрити уроки із замочком,<br>пройдіть попередні.</h6></div>\r\n</div>\r\n    <div id=\"table-content\">\r\n    <table class=\"table\">\r\n        <tbody>\r\n        <tr>\r\n            <!--<td><img class=\"lesson-img\" src=\"../www/assets/images/lesson1.ico\"></td>-->\r\n            <td><img class=\"lesson-img\" src=\"/static/lesson1.ico\"></td>\r\n            <td class=\"click-td\" id=\"less01\">Перші кроки</td>\r\n            </tr>\r\n        <tr>\r\n            <td></td>\r\n            <td class=\"click-td\" id=\"less02\">Моя сім'я</td>\r\n        </tr>\r\n        <tr>\r\n            <td></td>\r\n            <td class=\"click-td\" id=\"less03\">Числівники</td>\r\n        </tr>\r\n        <tr>\r\n            <td></td>\r\n            <td class=\"click-td\" id=\"less04\">Кольори</td>\r\n        </tr>\r\n        </tbody>\r\n    </table>\r\n    </div>\r\n</div>\r\n");
+exports.Grammar_Lesson = ejs.compile("<header id=\"header-title\"><h1 class=\"brown text-center\"><%= title%></h1></header>\r\n<div id=\"grammar-container\">\r\n        <div id=\"myCarousel\" class=\"carousel slide\" data-ride=\"carousel\">\r\n            <!-- Indicators -->\r\n            <ol class=\"carousel-indicators\">\r\n                <li data-target=\"#myCarousel\" data-slide-to=\"0\" class=\"active\"></li>\r\n                <li data-target=\"#myCarousel\" data-slide-to=\"1\"></li>\r\n                <li data-target=\"#myCarousel\" data-slide-to=\"2\"></li>\r\n            </ol>\r\n\r\n            <!-- Wrapper for slides -->\r\n            <div class=\"carousel-inner\">\r\n                <div class=\"item active\">\r\n                    <img src=\"/static/grammar1.png\" alt=\"Особові займенники\" style=\"width:100%;\">\r\n                </div>\r\n\r\n                <div class=\"item\">\r\n                    <img src=\"/static/grammar1.png\" alt=\"Chicago\" style=\"width:350px;\">\r\n                </div>\r\n\r\n                <div class=\"item\">\r\n                    <img src=\"/static/grammar1.png\" alt=\"New york\" style=\"width:350px;\">\r\n                </div>\r\n            </div>\r\n\r\n            <!-- Left control -->\r\n            <a class=\"left carousel-control\" href=\"#myCarousel\" data-slide=\"prev\">\r\n                <span class=\"glyphicon glyphicon-chevron-left\"></span>\r\n                <span class=\"sr-only\">Previous</span>\r\n            </a>\r\n            <!-- Right control -->\r\n            <a class=\"right carousel-control\" href=\"#myCarousel\" data-slide=\"next\">\r\n                <span class=\"glyphicon glyphicon-chevron-right\"></span>\r\n                <span class=\"sr-only\">Next</span>\r\n            </a>\r\n        </div>\r\n</div>");
+},{"ejs":6}],3:[function(require,module,exports){
 var Templates = require('./Templates');
-$('.main-container').append(Templates.test({username:'user'}));
+var $temp = $('#template');
+var $nodeMap;
+
+
+function initialise() {
+    var lessons = Templates.Lessons_Map({title:'Уроки'});
+    $nodeMap = $(lessons);
+
+    $temp.append($nodeMap);
+    f();
+}
+//function grammarTemp(data) {
+function grammarTemp() {
+    $temp.html("");
+    var html_code = Templates.Grammar_Lesson({title:'Перші кроки'});
+    var $nodeGr = $(html_code);
+    $temp.append($nodeGr);
+}
+function f() {
+    $nodeMap.find('#less01').click( function () {
+        // var data = {
+        //     'number' : 1
+        // };
+        // backendPost('/api/lesson' ,data, function (err, data) {
+        //     if(!err){
+        //         if(data.status==="ok")
+        //             grammarTemp(data);
+        //     }
+        //     else
+        //         alert('Error');
+        // })
+        grammarTemp();
+    });
+    // $temp.append($nodeMap);
+}
+
+// $('#less01').click( function () {
+//     // var data = {
+//     //     'number' : 1
+//     // };
+//     // backendPost('/api/lesson' ,data, function (err, data) {
+//     //     if(!err){
+//     //         if(data.status==="ok")
+//     //             grammarTemp(data);
+//     //     }
+//     //     else
+//     //         alert('Error');
+//     // })
+//     alert("click!");
+//     grammarTemp();
+// });
+
+
+exports.initialiseLessons = initialise;
+},{"./Templates":2}],4:[function(require,module,exports){
+$(function() {
+
+    var Lessons = require("./lessons");
+    var API = require('./API');
+    Lessons.initialiseLessons();
+
+
+
     $('.fliper-btn').click(function () {
         var card = $('#card');
 
@@ -29,7 +138,7 @@ $('.main-container').append(Templates.test({username:'user'}));
             'username' : login,
             'password' : pwd
         };
-        backendPost('/signup/' ,data, function (err, data) {
+        API.backendPost('/signup/' ,data, function (err, data) {
             if(!err){
                 if(data.status==="ok")
                     window.location.href = "/home";
@@ -47,7 +156,7 @@ $('.main-container').append(Templates.test({username:'user'}));
             'username' : login,
             'password' : pwd
         };
-        backendPost('/login/', data, function (err, data) {
+        API.backendPost('/login/', data, function (err, data) {
             if(!err){
                 if(data.status==="ok")
                     window.location.href = "/home";
@@ -63,7 +172,7 @@ $('.main-container').append(Templates.test({username:'user'}));
 
     $('#exit').on('click',function () {
         alert("");
-       backendPost('/logout/', null,function () {
+       API.backendPost('/logout/', null,function () {
            window.location.href='/welcome';
        })
     });
@@ -71,7 +180,7 @@ $('.main-container').append(Templates.test({username:'user'}));
         var data = {
             username : username
         };
-        backendPost('/validate_username/',data, function (err, data) {
+        API.backendPost('/validate_username/',data, function (err, data) {
             if(!err){
                 var danger = $('.danger');
                 if(!data.valid)
@@ -85,28 +194,11 @@ $('.main-container').append(Templates.test({username:'user'}));
     }
 
 
-    function backendPost(url, data, callback) {
-        $.ajax({
-            headers: {
-                'X-CSRFToken' : $('.csrf').text()
-            },
-            url: url,
-            type: 'POST',
-            contentType : 'application/json',
-            dataType : 'json',
-            data: JSON.stringify(data),
-            success: function(data){
-                callback(null, data);
-            },
-            error: function() {
-                callback(new Error("Ajax Failed"));
-            }
-        })
-    }
-});
-},{"./Templates":1}],3:[function(require,module,exports){
 
-},{}],4:[function(require,module,exports){
+});
+},{"./API":1,"./lessons":3}],5:[function(require,module,exports){
+
+},{}],6:[function(require,module,exports){
 /*
  * EJS Embedded JavaScript templates
  * Copyright 2112 Matthew Eernisse (mde@fleegix.org)
@@ -974,7 +1066,7 @@ if (typeof window != 'undefined') {
   window.ejs = exports;
 }
 
-},{"../package.json":6,"./utils":5,"fs":3,"path":7}],5:[function(require,module,exports){
+},{"../package.json":8,"./utils":7,"fs":5,"path":9}],7:[function(require,module,exports){
 /*
  * EJS Embedded JavaScript templates
  * Copyright 2112 Matthew Eernisse (mde@fleegix.org)
@@ -1140,7 +1232,7 @@ exports.cache = {
   }
 };
 
-},{}],6:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 module.exports={
   "_args": [
     [
@@ -1256,7 +1348,7 @@ module.exports={
   "version": "2.5.7"
 }
 
-},{}],7:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 (function (process){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -1484,7 +1576,7 @@ var substr = 'ab'.substr(-1) === 'b'
 ;
 
 }).call(this,require('_process'))
-},{"_process":8}],8:[function(require,module,exports){
+},{"_process":10}],10:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -1670,4 +1762,4 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}]},{},[2]);
+},{}]},{},[4]);

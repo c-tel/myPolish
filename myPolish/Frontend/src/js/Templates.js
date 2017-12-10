@@ -1,4 +1,5 @@
 var fs = require('fs');
 var ejs = require('ejs');
 
-exports.test = ejs.compile(fs.readFileSync('./Frontend/templates/test.ejs', "utf8"));
+exports.Lessons_Map = ejs.compile(fs.readFileSync('./Frontend/templates/Lessons_Map.ejs', "utf8"));
+exports.Grammar_Lesson = ejs.compile(fs.readFileSync('./Frontend/templates/Grammar_Lesson.ejs', "utf8"));
