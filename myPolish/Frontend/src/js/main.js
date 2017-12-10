@@ -37,6 +37,7 @@ $(function() {
     });
 
     $("#signIn").click(function () {
+        alert('Click signIn!');
         var login = $('#signin-username').val();
 
         var pwd = $('#signin-password').val();

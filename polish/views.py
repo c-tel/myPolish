@@ -65,7 +65,8 @@ def validate_username(request):
 						})
 @csrf_exempt
 def lesson(request):
-	num = request.POST.get('num')
+	dict = json.loads(request.body.decode('utf-8'))
+	num = dict['num']
 	res = get_lesson_stuff(num)
 	res['status'] = 'ok'
 	return JsonResponse(res)

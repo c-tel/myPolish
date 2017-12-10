@@ -37,24 +37,18 @@ function backendPost(url, data, callback) {
 }
 
 exports.backendPost = backendPost;
-// exports.getPizzaList = function(callback) {
-//     backendGet("/api/get-pizza-list/", callback);
-// };
-//
-// exports.createOrder = function(order_info, callback) {
-//     backendPost("/api/create-order/", order_info, callback);
-// };
-
+exports.backendGet = backendGet;
 },{}],2:[function(require,module,exports){
 
 var ejs = require('ejs');
 
-exports.Lessons_Map = ejs.compile("<div id=\"lessons\">\r\n    <header id=\"header-title\"><h1 class=\"brown text-center\"><%= title%></h1></header>\r\n    <div class=\"row\">\r\n        <div class=\"col-xs-offset-4 col-xs-8 col-sm-offset-7 col-sm-5\"><h6 id=\"rules-title\">Щоб відкрити уроки із замочком,<br>пройдіть попередні.</h6></div>\r\n</div>\r\n    <div id=\"table-content\">\r\n    <table class=\"table\">\r\n        <tbody>\r\n        <tr>\r\n            <!--<td><img class=\"lesson-img\" src=\"../www/assets/images/lesson1.ico\"></td>-->\r\n            <td><img class=\"lesson-img\" src=\"/static/lesson1.ico\"></td>\r\n            <td class=\"click-td\" id=\"less01\">Перші кроки</td>\r\n            </tr>\r\n        <tr>\r\n            <td></td>\r\n            <td class=\"click-td\" id=\"less02\">Моя сім'я</td>\r\n        </tr>\r\n        <tr>\r\n            <td></td>\r\n            <td class=\"click-td\" id=\"less03\">Числівники</td>\r\n        </tr>\r\n        <tr>\r\n            <td></td>\r\n            <td class=\"click-td\" id=\"less04\">Кольори</td>\r\n        </tr>\r\n        </tbody>\r\n    </table>\r\n    </div>\r\n</div>\r\n");
-exports.Grammar_Lesson = ejs.compile("<header id=\"header-title\"><h1 class=\"brown text-center\"><%= title%></h1></header>\r\n<div id=\"grammar-container\">\r\n        <div id=\"myCarousel\" class=\"carousel slide\" data-ride=\"carousel\">\r\n            <!-- Indicators -->\r\n            <ol class=\"carousel-indicators\">\r\n                <li data-target=\"#myCarousel\" data-slide-to=\"0\" class=\"active\"></li>\r\n                <li data-target=\"#myCarousel\" data-slide-to=\"1\"></li>\r\n                <li data-target=\"#myCarousel\" data-slide-to=\"2\"></li>\r\n            </ol>\r\n\r\n            <!-- Wrapper for slides -->\r\n            <div class=\"carousel-inner\">\r\n                <div class=\"item active\">\r\n                    <img src=\"/static/grammar1.png\" alt=\"Особові займенники\" style=\"width:100%;\">\r\n                </div>\r\n\r\n                <div class=\"item\">\r\n                    <img src=\"/static/grammar1.png\" alt=\"Chicago\" style=\"width:350px;\">\r\n                </div>\r\n\r\n                <div class=\"item\">\r\n                    <img src=\"/static/grammar1.png\" alt=\"New york\" style=\"width:350px;\">\r\n                </div>\r\n            </div>\r\n\r\n            <!-- Left control -->\r\n            <a class=\"left carousel-control\" href=\"#myCarousel\" data-slide=\"prev\">\r\n                <span class=\"glyphicon glyphicon-chevron-left\"></span>\r\n                <span class=\"sr-only\">Previous</span>\r\n            </a>\r\n            <!-- Right control -->\r\n            <a class=\"right carousel-control\" href=\"#myCarousel\" data-slide=\"next\">\r\n                <span class=\"glyphicon glyphicon-chevron-right\"></span>\r\n                <span class=\"sr-only\">Next</span>\r\n            </a>\r\n        </div>\r\n</div>");
+exports.Lessons_Map = ejs.compile("<div id=\"lessons\">\r\n    <header id=\"header-title\"><h1 class=\"brown text-center\"><%= title%></h1></header>\r\n    <div class=\"row\">\r\n        <div class=\"col-xs-offset-4 col-xs-8 col-sm-offset-7 col-sm-5\"><h6 id=\"rules-title\">Щоб відкрити уроки із замочком,<br>пройдіть попередні.</h6></div>\r\n</div>\r\n    <div id=\"table-content\">\r\n    <table class=\"table\">\r\n        <tbody>\r\n        <tr>\r\n            <!--<td><img class=\"lesson-img\" src=\"../www/assets/images/lesson1.ico\"></td>-->\r\n            <td><img class=\"lesson-img\" src=\"/static/lesson1.ico\"></td>\r\n            <td class=\"click-td\" id=\"1\">Перші кроки</td>\r\n            </tr>\r\n        <tr>\r\n            <td></td>\r\n            <td class=\"click-td\" id=\"2\">Моя сім'я</td>\r\n        </tr>\r\n        <tr>\r\n            <td></td>\r\n            <td class=\"click-td\" id=\"3\">Числівники</td>\r\n        </tr>\r\n        <tr>\r\n            <td></td>\r\n            <td class=\"click-td\" id=\"4\">Кольори</td>\r\n        </tr>\r\n        </tbody>\r\n    </table>\r\n    </div>\r\n</div>\r\n");
+exports.Grammar_Lesson = ejs.compile("<header id=\"header-title\"><h1 class=\"brown text-center\"><%= title%></h1></header>\r\n<div id=\"grammar-container\">\r\n        <div id=\"myCarousel\" class=\"carousel slide\" data-ride=\"carousel\" data-interval=\"false\">\r\n            <!-- Indicators -->\r\n            <ol class=\"carousel-indicators\">\r\n                <li data-target=\"#myCarousel\" data-slide-to=\"0\" class=\"active\"></li>\r\n                <li data-target=\"#myCarousel\" data-slide-to=\"1\"></li>\r\n                <li data-target=\"#myCarousel\" data-slide-to=\"2\"></li>\r\n            </ol>\r\n\r\n            <!-- Wrapper for slides -->\r\n            <div class=\"carousel-inner\">\r\n                <div class=\"item active\">\r\n                    <img src=\"/static/grammar1.png\" alt=\"Особові займенники\" style=\"width:100%;\">\r\n                </div>\r\n\r\n                <div class=\"item\">\r\n                    <img src=\"/static/grammar1.png\" alt=\"\" style=\"width:100%;\">\r\n                </div>\r\n\r\n                <div class=\"item\">\r\n                    <img src=\"/static/grammar1.png\" alt=\"\" style=\"width:100%;\">\r\n                </div>\r\n            </div>\r\n\r\n            <!-- Left control -->\r\n            <a class=\"left carousel-control\" href=\"#myCarousel\" data-slide=\"prev\" style=\"width: 10%;\">\r\n                <span class=\"glyphicon glyphicon-chevron-left\"></span>\r\n                <span class=\"sr-only\">Previous</span>\r\n            </a>\r\n            <!-- Right control -->\r\n            <a class=\"right carousel-control\" href=\"#myCarousel\" data-slide=\"next\" style=\"width: 10%;\">\r\n                <span class=\"glyphicon glyphicon-chevron-right\"></span>\r\n                <span class=\"sr-only\">Next</span>\r\n            </a>\r\n        </div>\r\n</div>");
 },{"ejs":6}],3:[function(require,module,exports){
 var Templates = require('./Templates');
 var $temp = $('#template');
 var $nodeMap;
+var API = require('./API');
 
 
 function initialise() {
@@ -64,50 +58,33 @@ function initialise() {
     $temp.append($nodeMap);
     f();
 }
-//function grammarTemp(data) {
-function grammarTemp() {
+function grammarTemp(data) {
+    alert(data.srcs);
     $temp.html("");
     var html_code = Templates.Grammar_Lesson({title:'Перші кроки'});
     var $nodeGr = $(html_code);
     $temp.append($nodeGr);
 }
 function f() {
-    $nodeMap.find('#less01').click( function () {
-        // var data = {
-        //     'number' : 1
-        // };
-        // backendPost('/api/lesson' ,data, function (err, data) {
-        //     if(!err){
-        //         if(data.status==="ok")
-        //             grammarTemp(data);
-        //     }
-        //     else
-        //         alert('Error');
-        // })
+    $nodeMap.find('.click-td').click( function () {
+        var num = $(this).attr("id");
+        var data = {
+            'num' : num
+        };
+        API.backendPost('/api/lesson/' ,data, function (err, data) {
+            if(!err){
+                if(data.status==="ok")
+                    grammarTemp(data);
+            }
+            else
+                alert('Error');
+        });
         grammarTemp();
     });
-    // $temp.append($nodeMap);
 }
 
-// $('#less01').click( function () {
-//     // var data = {
-//     //     'number' : 1
-//     // };
-//     // backendPost('/api/lesson' ,data, function (err, data) {
-//     //     if(!err){
-//     //         if(data.status==="ok")
-//     //             grammarTemp(data);
-//     //     }
-//     //     else
-//     //         alert('Error');
-//     // })
-//     alert("click!");
-//     grammarTemp();
-// });
-
-
 exports.initialiseLessons = initialise;
-},{"./Templates":2}],4:[function(require,module,exports){
+},{"./API":1,"./Templates":2}],4:[function(require,module,exports){
 $(function() {
 
     var Lessons = require("./lessons");
@@ -147,6 +124,7 @@ $(function() {
     });
 
     $("#signIn").click(function () {
+        alert('Click signIn!');
         var login = $('#signin-username').val();
 
         var pwd = $('#signin-password').val();
