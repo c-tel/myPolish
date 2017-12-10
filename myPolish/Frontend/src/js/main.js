@@ -59,7 +59,6 @@ $('.main-container').append(Templates.test({username:'user'}));
     });
 
     $('#exit').on('click',function () {
-        alert("");
        backendPost('/logout/', null,function () {
            window.location.href='/welcome';
        })

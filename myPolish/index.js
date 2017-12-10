@@ -5,8 +5,11 @@ var ejs = require('ejs');
 exports.test = ejs.compile("<div>\r\n    <%= username%>\r\n</div>");
 },{"ejs":4}],2:[function(require,module,exports){
 $(function() {
+
 var Templates = require('./Templates');
+
 $('.main-container').append(Templates.test({username:'user'}));
+
     $('.fliper-btn').click(function () {
         var card = $('#card');
 
@@ -62,7 +65,6 @@ $('.main-container').append(Templates.test({username:'user'}));
     });
 
     $('#exit').on('click',function () {
-        alert("");
        backendPost('/logout/', null,function () {
            window.location.href='/welcome';
        })

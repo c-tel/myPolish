@@ -27,6 +27,29 @@ class Session(models.Model):
 	user = models.ForeignKey(User)
 	objects = SessionManager()
 
+class Lesson(models.Model):
+	num = models.IntegerField(primary_key=True)
+	type = models.CharField(max_length=8)
+	
+class Word(models.Model):
+	pl = models.CharField(max_length=32)
+	uk = models.CharField(max_length=32)
+	transcript = models.CharField(max_length=32)
+	related_lesson = models.ForeignKey(Lesson)
+
+class GrammarRule(models.Model):
+	src = models.CharField(max_length=32)
+	related_lesson = models.ForeignKey(Lesson)
+
+class Test(models.Model):
+	num = models.IntegerField(primary_key=True)
+	type = models.CharField(max_length=8)
+
+class WordQuiz(models.Model):
+	quest = models.CharField(max_length=16)
+	vars = models.CharField(max_length=64)
+	ans = models.CharField(max_length=16)
+
 def add_user(username, password):
 	user = User.objects.create_user(username=username, password=password)
 	user.save()
@@ -38,3 +61,27 @@ def not_reserved(username):
 		return False
 	except User.DoesNotExist:
 		return True
+
+def get_lesson_stuff(num):
+	lesson = Lesson.objects.get(num=num)
+	res = {}
+	if lesson.type == 'dict':
+		words = list(Word.objects.filter(related_lesson=lesson))
+		dict = []
+		for word in words:
+			dict.append([word.pl, word.uk, word.transcript])
+		res = {
+			'type' : 'dict',
+			'dict' : dict
+		}
+	else:
+		rules = list(GrammarRule.objects.filter(related_lesson=lesson))
+		sources = []
+		for rule in rules:
+			sources.append(rule.src)
+		res = {
+			'type' : 'grammar',
+			'srcs' : sources
+		}
+	return res
+		

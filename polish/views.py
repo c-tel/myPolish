@@ -1,7 +1,7 @@
 import json
 
 from django.shortcuts import render, get_object_or_404
-from polish.models import add_user, User, not_reserved, Session
+from polish.models import add_user, User, not_reserved, Session, get_lesson_stuff
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 
@@ -20,7 +20,6 @@ def welcome(request):
 def home(request):
 	if request.user is None:
 		return HttpResponseRedirect('/welcome')
-	
 	return render(request, 'home.html',{})
 
 def signup(request):
@@ -64,3 +63,9 @@ def validate_username(request):
 	return JsonResponse({'status': 'ok',
 						'valid': not_reserved(json.loads(request.body.decode('utf-8'))['username'])
 						})
+@csrf_exempt
+def lesson(request):
+	num = request.POST.get('num')
+	res = get_lesson_stuff(num)
+	res['status'] = 'ok'
+	return JsonResponse(res)
