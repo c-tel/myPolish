@@ -1,83 +1,43 @@
 $(function() {
-
-    var Lessons = require("./lessons");
+    var Map = require("./map");
+    var Welcome = require('./welcome.js');
     var API = require('./API');
-    Lessons.initialiseLessons();
+    var Templates = require('./Templates');
 
-    $('.fliper-btn').click(function () {
-        var card = $('#card');
-
-        if(card.hasClass('flipped')){
-            $('.front').css("display", "block");
-            $('.back').css("display", "none");
-        } else {
-            $('.front').css("display", "none");
-            $('.back').css("display", "block");
-        }
-        card.toggleClass('flipped');
-    });
-
-
-    $("#signUp").click(function () {
-        var login = $('#signup-username').val();
-
-        var pwd = $('#signup-password').val();
-        var data = {
-            'username' : login,
-            'password' : pwd
-        };
-        API.backendPost('/signup/' ,data, function (err, data) {
-            if(!err){
-                if(data.status==="ok")
-                    window.location.href = "/home";
-            }
-            else
-                alert('Error');
-        })
-    });
-
-    $("#signIn").click(function () {
-        alert('Click signIn!');
-        var login = $('#signin-username').val();
-
-        var pwd = $('#signin-password').val();
-        var data = {
-            'username' : login,
-            'password' : pwd
-        };
-        API.backendPost('/login/', data, function (err, data) {
-            if(!err){
-                if(data.status==="ok")
-                    window.location.href = "/home";
-            }
-            else
-                alert('Error');
-        })
-    });
-
-    $('#signup-username').on('input', function () {
-       validateUsername($('#signup-username').val());
-    });
+     if(window.location.href.indexOf('home') !== -1) {
+        API.backendPost('/api/init/', {}, function (err, data) {
+            if (!err)
+                Map.initialiseMap(data);
+        });
+    }
 
     $('#exit').on('click',function () {
        API.backendPost('/logout/', null,function () {
            window.location.href='/welcome';
        })
     });
-    function validateUsername(username) {
-        var data = {
-            username : username
-        };
-        API.backendPost('/validate_username/',data, function (err, data) {
-            if(!err){
-                var danger = $('.danger');
-                if(!data.valid)
-                    danger.show();
-                else
-                    danger.hide();
-            }
-            else
-                alert('Error');
-        })
-    }
+    $('#info_trigger').on('click', function () {
+        API.backendPost('/api/day/', {}, function (err, data) {
+            var code = Templates.Info({count: data.count});
+            $('#modal_window').append(code);
+            $('#close').click(function () {
+                $('#modal_window').html('');
+            });
+            $('#shareBtn').on('click', function() {
+                alert('click!');
+                var obj = {
+                    "og:title" : 'Сьогодні я вивчив ' + data.count + ' слів польською з My Polish!',
+                    "og:url" : "http://google.com/",
+                    "og:type" : "Object"
+                };
+                FB.ui({
+                    method: 'feed',
+                    display: 'popup',
+                    app_id : 408371692927964,
+                    object: JSON.stringify(obj),
+                    href: 'https://google.com/'
+                }, function(response){});
+            });
+        });
+    });
 });

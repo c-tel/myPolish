@@ -1,7 +1,7 @@
 import json
 
 from django.shortcuts import render, get_object_or_404
-from polish.models import add_user, User, not_reserved, Session, get_lesson_stuff
+from polish.models import *
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 
@@ -52,6 +52,7 @@ def login(request):
 			'status': 'error',
 			})
 			
+
 @csrf_exempt
 def logout(request):
 	Session.objects.exit(request.session)
@@ -59,10 +60,13 @@ def logout(request):
 			'status': 'ok'
 			})
 
+
 def validate_username(request):
 	return JsonResponse({'status': 'ok',
 						'valid': not_reserved(json.loads(request.body.decode('utf-8'))['username'])
 						})
+
+
 @csrf_exempt
 def lesson(request):
 	dict = json.loads(request.body.decode('utf-8'))
@@ -70,3 +74,45 @@ def lesson(request):
 	res = get_lesson_stuff(num)
 	res['status'] = 'ok'
 	return JsonResponse(res)
+
+	
+@csrf_exempt
+def test(request):
+	dict = json.loads(request.body.decode('utf-8'))
+	num = dict['num']
+	res = get_test_stuff(num, request.user)
+	res['status'] = 'ok'
+	return JsonResponse(res)
+
+
+@csrf_exempt	
+def addWord(request):
+	dict = json.loads(request.body.decode('utf-8'))
+	user = request.user
+	id = dict['id']
+	recordWord(id, user)
+	return JsonResponse({'status':'ok'})
+
+
+@csrf_exempt	
+def finished(request):
+	dict = json.loads(request.body.decode('utf-8'))
+	user = request.user
+	id = dict['id']
+	next_lesson(user, id)
+	return JsonResponse({'status':'ok'})
+
+@csrf_exempt	
+def lessons_info(request):
+	user = request.user
+	info = get_lessons_info(user)
+	return JsonResponse(info)
+
+@csrf_exempt	
+def brainstorm(request):
+	return JsonResponse(review(request.user))
+
+	
+@csrf_exempt	
+def day_count(request):
+	return JsonResponse({'count':words_for_today(request.user)})

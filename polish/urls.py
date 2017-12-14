@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from polish.views import signup, validate_username, login, logout, welcome, main, home, lesson
+from polish.views import *
 
 urlpatterns = [
 	url(r'^home/$', home),
@@ -25,5 +25,11 @@ urlpatterns = [
 	url(r'^login/$', login),
 	url(r'^logout/$', logout),
 	url(r'^validate_username/$', validate_username),
-	url(r'^api/lesson/$', lesson)
+	url(r'^api/lesson/$', lesson),
+	url(r'^api/test/$', test),
+	url(r'^api/rec_w/$', addWord),
+	url(r'^api/finish/$', finished),
+	url(r'^api/init/$', lessons_info),
+	url(r'^api/day/$', day_count),
+	url(r'^api/review/$', brainstorm)
 ]

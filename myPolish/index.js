@@ -42,135 +42,359 @@ exports.backendGet = backendGet;
 
 var ejs = require('ejs');
 
-exports.Lessons_Map = ejs.compile("<div id=\"lessons\">\r\n    <header id=\"header-title\"><h1 class=\"brown text-center\"><%= title%></h1></header>\r\n    <div class=\"row\">\r\n        <div class=\"col-xs-offset-4 col-xs-8 col-sm-offset-7 col-sm-5\"><h6 id=\"rules-title\">Щоб відкрити уроки із замочком,<br>пройдіть попередні.</h6></div>\r\n</div>\r\n    <div id=\"table-content\">\r\n    <table class=\"table\">\r\n        <tbody>\r\n        <tr>\r\n            <!--<td><img class=\"lesson-img\" src=\"../www/assets/images/lesson1.ico\"></td>-->\r\n            <td><img class=\"lesson-img\" src=\"/static/lesson1.ico\"></td>\r\n            <td class=\"click-td\" id=\"1\">Перші кроки</td>\r\n            </tr>\r\n        <tr>\r\n            <td></td>\r\n            <td class=\"click-td\" id=\"2\">Моя сім'я</td>\r\n        </tr>\r\n        <tr>\r\n            <td></td>\r\n            <td class=\"click-td\" id=\"3\">Числівники</td>\r\n        </tr>\r\n        <tr>\r\n            <td></td>\r\n            <td class=\"click-td\" id=\"4\">Кольори</td>\r\n        </tr>\r\n        </tbody>\r\n    </table>\r\n    </div>\r\n</div>\r\n");
-exports.Grammar_Lesson = ejs.compile("<header id=\"header-title\"><h1 class=\"brown text-center\"><%= title%></h1></header>\r\n<div id=\"grammar-container\">\r\n        <div id=\"myCarousel\" class=\"carousel slide\" data-ride=\"carousel\" data-interval=\"false\">\r\n            <!-- Indicators -->\r\n            <ol class=\"carousel-indicators\">\r\n                <li data-target=\"#myCarousel\" data-slide-to=\"0\" class=\"active\"></li>\r\n                <li data-target=\"#myCarousel\" data-slide-to=\"1\"></li>\r\n                <li data-target=\"#myCarousel\" data-slide-to=\"2\"></li>\r\n            </ol>\r\n\r\n            <!-- Wrapper for slides -->\r\n            <div class=\"carousel-inner\">\r\n                <div class=\"item active\">\r\n                    <img src=\"/static/grammar1.png\" alt=\"Особові займенники\" style=\"width:100%;\">\r\n                </div>\r\n\r\n                <div class=\"item\">\r\n                    <img src=\"/static/grammar1.png\" alt=\"\" style=\"width:100%;\">\r\n                </div>\r\n\r\n                <div class=\"item\">\r\n                    <img src=\"/static/grammar1.png\" alt=\"\" style=\"width:100%;\">\r\n                </div>\r\n            </div>\r\n\r\n            <!-- Left control -->\r\n            <a class=\"left carousel-control\" href=\"#myCarousel\" data-slide=\"prev\" style=\"width: 10%;\">\r\n                <span class=\"glyphicon glyphicon-chevron-left\"></span>\r\n                <span class=\"sr-only\">Previous</span>\r\n            </a>\r\n            <!-- Right control -->\r\n            <a class=\"right carousel-control\" href=\"#myCarousel\" data-slide=\"next\" style=\"width: 10%;\">\r\n                <span class=\"glyphicon glyphicon-chevron-right\"></span>\r\n                <span class=\"sr-only\">Next</span>\r\n            </a>\r\n        </div>\r\n</div>");
-},{"ejs":6}],3:[function(require,module,exports){
+exports.Lessons_Map = ejs.compile("<div id=\"lessons\">\r\n    <header id=\"header-title\"><h1 class=\"brown text-center\"><%= title%></h1></header>\r\n    <div class=\"row\">\r\n        <div class=\"col-xs-offset-4 col-xs-8 col-sm-offset-7 col-sm-5\"><h6 id=\"rules-title\">Щоб відкрити уроки із замочком,<br>пройдіть попередні.</h6></div>\r\n    </div>\r\n    <div class=\"row\">\r\n        <div class=\"col-xs-offset-1 col-xs-10 col-md-offset-2 col-md-8\">\r\n            <div class=\"tab-content\">\r\n                <ul class=\"nav nav-pills nav-justified\">\r\n                    <li class=\"active\"><a data-toggle=\"pill\" href=\"#materials\">Матеріали</a></li>\r\n                    <li><a data-toggle=\"pill\" href=\"#tests\">Тести</a></li>\r\n                </ul>\r\n                <div id=\"materials\" class=\"tab-pane fade in active\">\r\n                    <div id=\"table-content\" style=\"font-size: 17px\">\r\n                        <table class=\"table\">\r\n                            <tbody>\r\n                            <%for(var i = 0; i< lessons.length; i++) {%>\r\n                            <tr>\r\n                                <td><img class=\"lesson-img\" id=\"<%=lessons[i].id%>img\" src=\"<%= lessons[i].img_src%>\"></td>\r\n                                <td class=\"l click-td\" id=\"<%= lessons[i].id%>\"><%= lessons[i].title%></td>\r\n                            </tr>\r\n                            <%}%>\r\n                            </tbody>\r\n                        </table>\r\n                    </div>\r\n                </div>\r\n                <div id=\"tests\" class=\"tab-pane fade\">\r\n                    <div id=\"table-content\" style=\"font-size: 17px\">\r\n                        <table class=\"table\">\r\n                            <tbody>\r\n                            <%for(var k = 1; k <= level; k++) {%>\r\n                            <tr>\r\n                                <td class=\"t gramm click-td\" id=\"<%=k%>\"><%=tests[k-1].title%></td>\r\n                            </tr>\r\n                            <%}%>\r\n                            </tbody>\r\n                        </table>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>");
+exports.Grammar_Lesson = ejs.compile("<header id=\"header-title\"><h1 class=\"brown text-center\"><%= title%></h1></header>\r\n<div id=\"grammar-container\">\r\n    <div class=\"row\">\r\n    <div class=\" col-xs-2\" style=\"margin-bottom: 10px;\"><i class=\"fa fa-arrow-circle-o-left fa-3x back-to-map\"></i></div>\r\n    </div>\r\n    <div id=\"myCarousel\" class=\"carousel slide\" data-ride=\"carousel\" data-interval=\"false\">\r\n            <!-- Indicators -->\r\n            <ol class=\"carousel-indicators\">\r\n                <li data-target=\"#myCarousel\" data-slide-to='1' class=\"active\"></li>\r\n                <% for(var i=1; i<sources.length; i++) { %>\r\n                    <li data-target=\"#myCarousel\" data-slide-to='<%= i+1%>'></li>\r\n                <% } %>\r\n            </ol>\r\n\r\n            <!-- Wrapper for slides -->\r\n            <div class=\"carousel-inner\">\r\n                <div class=\"item active\">\r\n                    <img src=\"<%= sources[0]%>\" style=\"width:100%;\">\r\n                </div>\r\n                <% for(var j=1; j<sources.length; j++) { %>\r\n                <div class=\"item\">\r\n                    <img src=\"<%= sources[j] %>\" style=\"width:100%;\">\r\n                </div>\r\n                <% } %>\r\n            </div>\r\n\r\n            <!-- Left control -->\r\n            <a class=\"left carousel-control\" href=\"#myCarousel\" data-slide=\"prev\" style=\"width: 10%;\">\r\n                <span class=\"glyphicon glyphicon-chevron-left\"></span>\r\n                <span class=\"sr-only\">Previous</span>\r\n            </a>\r\n            <!-- Right control -->\r\n            <a class=\"right carousel-control\" href=\"#myCarousel\" data-slide=\"next\" style=\"width: 10%;\">\r\n                <span class=\"glyphicon glyphicon-chevron-right\"></span>\r\n                <span class=\"sr-only\">Next</span>\r\n            </a>\r\n        </div>\r\n</div>");
+exports.Dictionary_Lesson = ejs.compile("<header id=\"header-title\"><h1 class=\"brown text-center\"><%= title%></h1></header>\r\n<div class=\"row\">\r\n<div class=\"col-xs-offset-1 col-xs-2\"><i class=\"fa fa-arrow-circle-o-left fa-3x back-to-map\"></i></div>\r\n</div>\r\n    <div id=\"dict-container\">\r\n    <h1 id=\"pl\"><%= word.pl%></h1>\r\n    <h6 class=\"trans\"><%= word.transcript%></h6>\r\n    <h2 id=\"uk\"><%= word.uk%></h2>\r\n    <div class=\"row\">\r\n        <div class=\"col-xs-6\"><i class=\"fa fa-arrow-left fa-2x\"></i></div>\r\n        <div class=\"col-xs-6\"><i class=\"fa fa-arrow-right fa-2x\"></i></div>\r\n    </div>\r\n</div>");
+exports.Grammar_Test = ejs.compile("<header id=\"header-title\"><h1 class=\"brown text-center\"><%= title%></h1></header>\r\n<div class=\"row\">\r\n<div class=\"col-xs-offset-1 col-xs-2\"><i class=\"fa fa-arrow-circle-o-left fa-3x back-to-map\"></i></div>\r\n</div>\r\n<div class=\"test-container\">\r\n    <h3 id=\"instruction\">Виберіть правильний варіант:</h3>\r\n    <div class=\"test\">\r\n        <h1 id=\"pl\"><%= tests.sentence%></h1>\r\n        <h4 id=\"uk\">(<%= tests.trans%>)</h4>\r\n        <h5 id=\"help-block\" style=\"visibility: hidden\">Неправильна відповідь. Спробуйте ще раз :)</h5>\r\n        <form class=\"variants\">\r\n            <div class=\"radio\">\r\n                <label><input type=\"radio\" name=\"optradio\" id=\"0\"><%= tests.variants[0]%></label>\r\n            </div>\r\n            <div class=\"radio\">\r\n                <label><input type=\"radio\" name=\"optradio\" id=\"1\"><%= tests.variants[1]%></label>\r\n            </div>\r\n            <div class=\"radio\">\r\n                <label><input type=\"radio\" name=\"optradio\" id=\"2\"><%= tests.variants[2]%></label>\r\n            </div>\r\n            <div class=\"radio\">\r\n                <label><input type=\"radio\" name=\"optradio\" id=\"3\"><%= tests.variants[3]%></label>\r\n            </div>\r\n        </form>\r\n        <div class=\"row\">\r\n            <div class=\"col-xs-5\" style=\"text-align: right\"><button class=\"btn btn-default\" id=\"prev-test\"><i class=\"fa fa-arrow-left\"></i> Назад</button></div>\r\n            <div class=\"col-xs-offset-2 col-xs-5\" style=\"text-align: left\"><button class=\"btn btn-default\" id=\"check-test\">Перевірити <i class=\"fa fa-arrow-right\"></i></button></div>\r\n            <div class=\"col-xs-offset-2 col-xs-5\" style=\"text-align: left\"><button class=\"btn btn-default\" id=\"finish-test\" style=\"display: none;\">Завершити <i class=\"fa fa-arrow-right\"></i></button></div>\r\n        </div>\r\n    </div>\r\n</div>");
+exports.Dictionary_Test = ejs.compile("<header id=\"header-title\"><h1 class=\"brown text-center\"><%= title%></h1></header>\r\n<div class=\"row\">\r\n    <div class=\"col-xs-offset-1 col-xs-2\"><i class=\"fa fa-arrow-circle-o-left fa-3x back-to-map\"></i></div>\r\n</div>\r\n<div class=\"test-container\">\r\n    <h3 id=\"instruction\">Виберіть правильний варіант:</h3>\r\n    <div class=\"test\">\r\n        <h1 id=\"pl-word\"><%= tests.word%></h1>\r\n        <h5 id=\"help-block\" style=\"visibility: hidden\">Неправильна відповідь. Спробуйте ще раз :)</h5>\r\n        <form class=\"variants\">\r\n            <div class=\"radio\">\r\n                <label><input type=\"radio\" name=\"optradio\" id=\"0\"><%= tests.variants[0]%></label>\r\n            </div>\r\n            <div class=\"radio\">\r\n                <label><input type=\"radio\" name=\"optradio\" id=\"1\"><%= tests.variants[1]%></label>\r\n            </div>\r\n            <div class=\"radio\">\r\n                <label><input type=\"radio\" name=\"optradio\" id=\"2\"><%= tests.variants[2]%></label>\r\n            </div>\r\n            <div class=\"radio\">\r\n                <label><input type=\"radio\" name=\"optradio\" id=\"3\"><%= tests.variants[3]%></label>\r\n            </div>\r\n        </form>\r\n        <div class=\"row\">\r\n            <div class=\"col-xs-5\" style=\"text-align: right\"><button class=\"btn btn-default\" id=\"prev-test\"><i class=\"fa fa-arrow-left\"></i> Назад</button></div>\r\n            <div class=\"col-xs-offset-2 col-xs-5\" style=\"text-align: left\"><button class=\"btn btn-default\" id=\"check-test\">Перевірити <i class=\"fa fa-arrow-right\"></i></button></div>\r\n            <div class=\"col-xs-offset-2 col-xs-5\" style=\"text-align: left\"><button class=\"btn btn-default\" id=\"finish-test\" style=\"display: none;\">Завершити <i class=\"fa fa-arrow-right\"></i></button></div>\r\n        </div>\r\n    </div>\r\n</div>");
+exports.Info = ejs.compile("<div id=\"infograph\">\r\n    <h4 id=\"label\">Скільки слів ви вивчили за сьогодні?</h4>\r\n    <h2><span id=\"number\"><%=count%></span></h2>\r\n    <!--<div id=\"shareBtn\" class=\"btn btn-success clearfix\">Share</div>-->\r\n    <button id=\"close\" class=\"btn btn-default\">Ok</button>\r\n</div>\r\n\r\n<div id=\"back\"></div>\r\n<!--<script>-->\r\n    <!--window.fbAsyncInit = function() {-->\r\n        <!--FB.init({-->\r\n            <!--appId            : '408371692927964',-->\r\n            <!--autoLogAppEvents : true,-->\r\n            <!--xfbml            : true,-->\r\n            <!--version          : 'v2.11'-->\r\n        <!--});-->\r\n    <!--};-->\r\n\r\n    <!--(function(d, s, id){-->\r\n        <!--var js, fjs = d.getElementsByTagName(s)[0];-->\r\n        <!--if (d.getElementById(id)) {return;}-->\r\n        <!--js = d.createElement(s); js.id = id;-->\r\n        <!--js.src = \"https://connect.facebook.net/en_US/sdk.js\";-->\r\n        <!--fjs.parentNode.insertBefore(js, fjs);-->\r\n    <!--}(document, 'script', 'facebook-jssdk'));-->\r\n<!--</script>-->");
+},{"ejs":9}],3:[function(require,module,exports){
 var Templates = require('./Templates');
+var Map = require('./map');
 var $temp = $('#template');
-var $nodeMap;
 var API = require('./API');
 
-
-function initialise() {
-    var lessons = Templates.Lessons_Map({title:'Уроки'});
-    $nodeMap = $(lessons);
-
-    $temp.append($nodeMap);
-    f();
-}
 function grammarTemp(data) {
-    alert(data.srcs);
     $temp.html("");
-    var html_code = Templates.Grammar_Lesson({title:'Перші кроки'});
+    var html_code = Templates.Grammar_Lesson({title:data.title, sources:data.srcs});
     var $nodeGr = $(html_code);
+    $nodeGr.find('.back-to-map').on('click',function () {
+        $($temp).fadeOut(300, function () {
+            API.backendPost('/api/init/', {}, function (err, data) {
+                if (!err)
+                    Map.initialiseMap(data);
+                else alert('error');
+            });
+            $($temp).fadeIn(300);
+        });
+    });
     $temp.append($nodeGr);
 }
-function f() {
-    $nodeMap.find('.click-td').click( function () {
-        var num = $(this).attr("id");
-        var data = {
-            'num' : num
-        };
-        API.backendPost('/api/lesson/' ,data, function (err, data) {
-            if(!err){
-                if(data.status==="ok")
-                    grammarTemp(data);
-            }
-            else
-                alert('Error');
+function dictionaryTemp(data) {
+    var numb = 0;
+    drawWord(numb, data);
+}
+function drawWord(numb, data) {
+    $temp.html("");
+    var html_code = Templates.Dictionary_Lesson({title:data.title, word: data.dict[numb]});
+    var $nodeD = $(html_code);
+    $nodeD.find('.back-to-map').on('click',function () {
+        $($temp).fadeOut(300, function () {
+            API.backendPost('/api/init/', {}, function (err, data) {
+                if (!err)
+                    Map.initialiseMap(data);
+                else alert('error');
+            });
+            $($temp).fadeIn(300);
         });
-        grammarTemp();
     });
+    $nodeD.find('.fa-arrow-right').on('click', function () {
+        if(numb < data.dict.length-1) {
+            numb++;
+            $('#dict-container').fadeOut(300, function () {
+                drawWord(numb, data);
+                $('#dict-container').fadeIn(300);
+            });
+        }
+    });
+    $nodeD.find('.fa-arrow-left').on('click', function () {
+        if(numb) {
+            numb--;
+            $('#dict-container').fadeOut(300, function () {
+                drawWord(numb, data);
+                $('#dict-container').fadeIn(300);
+            });
+        }
+    });
+    $temp.append($nodeD);
 }
 
-exports.initialiseLessons = initialise;
-},{"./API":1,"./Templates":2}],4:[function(require,module,exports){
+exports.grammarTemp = grammarTemp;
+exports.dictionaryTemp = dictionaryTemp;
+},{"./API":1,"./Templates":2,"./map":5}],4:[function(require,module,exports){
 $(function() {
-
-    var Lessons = require("./lessons");
+    var Map = require("./map");
+    var Welcome = require('./welcome.js');
     var API = require('./API');
-    Lessons.initialiseLessons();
+    var Templates = require('./Templates');
 
-    $('.fliper-btn').click(function () {
-        var card = $('#card');
-
-        if(card.hasClass('flipped')){
-            $('.front').css("display", "block");
-            $('.back').css("display", "none");
-        } else {
-            $('.front').css("display", "none");
-            $('.back').css("display", "block");
-        }
-        card.toggleClass('flipped');
-    });
-
-
-    $("#signUp").click(function () {
-        var login = $('#signup-username').val();
-
-        var pwd = $('#signup-password').val();
-        var data = {
-            'username' : login,
-            'password' : pwd
-        };
-        API.backendPost('/signup/' ,data, function (err, data) {
-            if(!err){
-                if(data.status==="ok")
-                    window.location.href = "/home";
-            }
-            else
-                alert('Error');
-        })
-    });
-
-    $("#signIn").click(function () {
-        alert('Click signIn!');
-        var login = $('#signin-username').val();
-
-        var pwd = $('#signin-password').val();
-        var data = {
-            'username' : login,
-            'password' : pwd
-        };
-        API.backendPost('/login/', data, function (err, data) {
-            if(!err){
-                if(data.status==="ok")
-                    window.location.href = "/home";
-            }
-            else
-                alert('Error');
-        })
-    });
-
-    $('#signup-username').on('input', function () {
-       validateUsername($('#signup-username').val());
-    });
+     if(window.location.href.indexOf('home') !== -1) {
+        API.backendPost('/api/init/', {}, function (err, data) {
+            if (!err)
+                Map.initialiseMap(data);
+        });
+    }
 
     $('#exit').on('click',function () {
        API.backendPost('/logout/', null,function () {
            window.location.href='/welcome';
        })
     });
-    function validateUsername(username) {
+    $('#info_trigger').on('click', function () {
+        API.backendPost('/api/day/', {}, function (err, data) {
+            var code = Templates.Info({count: data.count});
+            $('#modal_window').append(code);
+            $('#close').click(function () {
+                $('#modal_window').html('');
+            });
+            $('#shareBtn').on('click', function() {
+                alert('click!');
+                var obj = {
+                    "og:title" : 'Сьогодні я вивчив ' + data.count + ' слів польською з My Polish!',
+                    "og:url" : "http://google.com/",
+                    "og:type" : "Object"
+                };
+                FB.ui({
+                    method: 'feed',
+                    display: 'popup',
+                    app_id : 408371692927964,
+                    object: JSON.stringify(obj),
+                    href: 'https://google.com/'
+                }, function(response){});
+            });
+        });
+    });
+});
+},{"./API":1,"./Templates":2,"./map":5,"./welcome.js":7}],5:[function(require,module,exports){
+var Templates = require('./Templates');
+var Lessons = require("./lessons");
+var Tests = require("./test");
+
+var $temp = $('#template');
+var $nodeMap;
+var API = require('./API');
+
+
+function initialise(data) {
+    $temp.html('');
+    var lessons = Templates.Lessons_Map({title:'Уроки', lessons: data.lessons, tests: data.tests, level: data.level});
+    $nodeMap = $(lessons);
+
+    $temp.append($nodeMap);
+    f(data.level);
+}
+function f(level) {
+
+    $nodeMap.find('.l.click-td').click(function () {
+        var num = $(this).attr("id");
+        if (num > level) {
+            var id = '#' + num + 'img';
+            $(id).effect("pulsate", {times: 1}, 1500);
+            return;
+        }
+
         var data = {
-            username : username
+            'num': num
         };
-        API.backendPost('/validate_username/',data, function (err, data) {
-            if(!err){
-                var danger = $('.danger');
-                if(!data.valid)
-                    danger.show();
-                else
-                    danger.hide();
+        API.backendPost('/api/lesson/', data, function (err, data) {
+            if (!err) {
+                if (data.status === "ok") {
+                    if (data.type === "grammar")
+                        Lessons.grammarTemp(data);
+                    else {
+                        Lessons.dictionaryTemp(data);
+                    }
+                }
             }
             else
                 alert('Error');
-        })
-    }
-});
-},{"./API":1,"./lessons":3}],5:[function(require,module,exports){
+        });
+    });
 
-},{}],6:[function(require,module,exports){
+    $nodeMap.find('.t.click-td').click(function () {
+        var num = $(this).attr("id");
+        var data = {
+            'num': num
+        };
+        API.backendPost('/api/test/', data, function (err, data) {
+            if (!err) {
+                if (data.status === "ok")
+                    Tests.testTemp(data);
+            }
+            else
+                alert('Error');
+        });
+
+    });
+}
+
+exports.initialiseMap = initialise;
+},{"./API":1,"./Templates":2,"./lessons":3,"./test":6}],6:[function(require,module,exports){
+var Templates = require('./Templates');
+var API = require('./API');
+var Map = require('./map');
+var $temp = $('#template');
+
+function testTemp(data) {
+    var numb = 0;
+    drawWordTest(numb, data);
+}
+
+function findRightWord(data) {
+    for(var i = 0; i<data.variants.length; i++) {
+        if(data.variants[i] === data.correct)
+            return i;
+    }
+}
+
+function drawWordTest(numb, data) {
+    $temp.html("");
+    var html_code;
+    if(data.type === "grammar") {
+        html_code = Templates.Grammar_Test({title: data.title, tests: data.tests[numb]});
+    } else {
+        html_code = Templates.Dictionary_Test({title: data.title, tests: data.tests[numb]});
+    }
+    var $nodeT = $(html_code);
+
+    if(numb === 0)
+        $nodeT.find('#prev-test').addClass('disabled');
+
+    $nodeT.find('.back-to-map').on('click',function () {
+        $($temp).fadeOut(300, function () {
+            API.backendPost('/api/init/', {}, function (err, data) {
+                if (!err)
+                    Map.initialiseMap(data);
+                else alert('error');
+            });
+            $($temp).fadeIn(300);
+        });
+    });
+
+    $nodeT.find('#finish-test').click(function () {
+        API.backendPost('/api/finish/',{id: data.id},function (err, data) {
+            if(!err){
+                API.backendPost('/api/init/', {}, function (err, data) {
+                    if (!err)
+                        Map.initialiseMap(data);
+                });
+            }
+        });
+
+    });
+
+    var rightId = findRightWord(data.tests[numb]);
+
+    $nodeT.find('#check-test').on('click', function () {
+        if(document.getElementById(rightId).checked === true ) {
+            $nodeT.find('#help-block').text('Правильно!');
+            $nodeT.find('#help-block').css('font-size', '18px');
+            $nodeT.find('#help-block').css('color', '#448D76');
+            $nodeT.find('#help-block').css('visibility', 'visible');
+            if(data.type === 'dict') {
+                API.backendPost('/api/rec_w/', {id: data.tests[numb].id}, function (err, data) {
+                    if (!err) {
+                    }
+                });
+            }
+            if (numb === data.tests.length - 1) {
+                $nodeT.find('#check-test').hide();
+                $nodeT.find('#finish-test').show();
+            } else {
+                $(this).attr('disabled', true);
+                setTimeout(function () {
+                    numb++;
+                    $('.test').fadeOut(300, function () {
+                        drawWordTest(numb, data);
+                        $('.test').fadeIn(300);
+                    });
+                }, 1100);
+            }
+        } else {
+            $nodeT.find('#help-block').css('visibility', 'visible');
+        }
+    });
+
+    $nodeT.find('#prev-test').on('click', function () {
+        if(numb) {
+            numb--;
+            $('.test').fadeOut(300, function () {
+                drawWordTest(numb, data);
+                $('.test').fadeIn(300);
+            });
+        }
+    });
+    $temp.append($nodeT);
+}
+
+exports.testTemp = testTemp;
+},{"./API":1,"./Templates":2,"./map":5}],7:[function(require,module,exports){
+var API = require('./API');
+
+$('.fliper-btn').click(function () {
+    var card = $('#card');
+
+    if(card.hasClass('flipped')){
+        $('.front').css("display", "block");
+        $('.back').css("display", "none");
+    } else {
+        $('.front').css("display", "none");
+        $('.back').css("display", "block");
+    }
+    card.toggleClass('flipped');
+});
+
+
+$("#signUp").click(function () {
+    var login = $('#signup-username').val();
+
+    var pwd = $('#signup-password').val();
+    var data = {
+        'username' : login,
+        'password' : pwd
+    };
+    API.backendPost('/signup/' ,data, function (err, data) {
+        if(!err){
+            if(data.status==="ok")
+                window.location.href = "/home";
+        }
+        else
+            alert('Error');
+    })
+});
+
+$("#signIn").click(function () {
+    var login = $('#signin-username').val();
+
+    var pwd = $('#signin-password').val();
+    var data = {
+        'username' : login,
+        'password' : pwd
+    };
+    API.backendPost('/login/', data, function (err, data) {
+        if(!err){
+            if(data.status==="ok")
+                window.location.href = "/home";
+            else {
+                $('#error').css('visibility', 'visible');
+            }
+        }
+        else
+            alert('Error');
+    })
+});
+$('#signup-username').on('input', function () {
+    validateUsername($('#signup-username').val());
+});
+function validateUsername(username) {
+    var data = {
+        username : username
+    };
+    API.backendPost('/validate_username/',data, function (err, data) {
+        if(!err){
+            var danger = $('.danger');
+            if(!data.valid)
+                danger.css('visibility', 'visible');
+            else
+                danger.css('visibility', 'hidden');
+        }
+        else
+            alert('Error');
+    })
+}
+},{"./API":1}],8:[function(require,module,exports){
+
+},{}],9:[function(require,module,exports){
 /*
  * EJS Embedded JavaScript templates
  * Copyright 2112 Matthew Eernisse (mde@fleegix.org)
@@ -1038,7 +1262,7 @@ if (typeof window != 'undefined') {
   window.ejs = exports;
 }
 
-},{"../package.json":8,"./utils":7,"fs":5,"path":9}],7:[function(require,module,exports){
+},{"../package.json":11,"./utils":10,"fs":8,"path":12}],10:[function(require,module,exports){
 /*
  * EJS Embedded JavaScript templates
  * Copyright 2112 Matthew Eernisse (mde@fleegix.org)
@@ -1204,7 +1428,7 @@ exports.cache = {
   }
 };
 
-},{}],8:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 module.exports={
   "_args": [
     [
@@ -1320,7 +1544,7 @@ module.exports={
   "version": "2.5.7"
 }
 
-},{}],9:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 (function (process){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -1548,7 +1772,7 @@ var substr = 'ab'.substr(-1) === 'b'
 ;
 
 }).call(this,require('_process'))
-},{"_process":10}],10:[function(require,module,exports){
+},{"_process":13}],13:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
