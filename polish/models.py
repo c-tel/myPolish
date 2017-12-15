@@ -238,9 +238,18 @@ def review(user):
 	random.shuffle(questions)
 	res = {
 		'tests' : questions,
+		'title' : 'Brainstorm'
 	}
 	return res
 	
 	
 def words_for_today(user):
 	return WordRecord.objects.filter(user=user, date__gt=datetime.now() - timedelta(days=1)).count()
+
+def drop(user):
+	for record in list(WordRecord.objects.filter(user=user)):
+		record.delete()
+	progress = UsersProgress.objects.get(user=user)
+	progress.current_lesson = 1 
+	progress.save()
+	

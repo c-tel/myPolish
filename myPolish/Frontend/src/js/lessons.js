@@ -25,7 +25,7 @@ function dictionaryTemp(data) {
 }
 function drawWord(numb, data) {
     $temp.html("");
-    var html_code = Templates.Dictionary_Lesson({title:data.title, word: data.dict[numb]});
+    var html_code = Templates.Dictionary_Lesson({title:data.title, word: data.dict[numb], length: data.dict.length, numb: numb});
     var $nodeD = $(html_code);
     $nodeD.find('.back-to-map').on('click',function () {
         $($temp).fadeOut(300, function () {

@@ -20,7 +20,7 @@ def welcome(request):
 def home(request):
 	if request.user is None:
 		return HttpResponseRedirect('/welcome')
-	return render(request, 'home.html',{})
+	return render(request, 'home.html',{'user' : request.user.username})
 
 def signup(request):
 	if request.method == 'POST':
@@ -116,3 +116,8 @@ def brainstorm(request):
 @csrf_exempt	
 def day_count(request):
 	return JsonResponse({'count':words_for_today(request.user)})
+
+@csrf_exempt	
+def delete_prg(request):
+	drop(request.user)
+	return JsonResponse({'status':'ok'})

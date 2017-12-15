@@ -13,9 +13,24 @@ function initialise(data) {
     $nodeMap = $(lessons);
 
     $temp.append($nodeMap);
-    f(data.level);
+    addListener(data.level);
 }
-function f(level) {
+function addListener(level) {
+    $nodeMap.find('#brain-storm').on('click', function () {
+        API.backendPost('/api/review/', {}, function (err, data) {
+            if (!err) {
+                if(data.tests.length)
+                    Tests.testTemp(data);
+                else {
+                    $nodeMap.find('.alert').fadeIn(800, function () {
+                        $nodeMap.find('.alert').fadeOut(3000);
+                    });
+                }
+            }
+            else
+                alert('Error');
+        });
+    });
 
     $nodeMap.find('.l.click-td').click(function () {
         var num = $(this).attr("id");
