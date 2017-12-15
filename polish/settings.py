@@ -122,7 +122,7 @@ USE_TZ = True
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "myPolish"),
 	os.path.join(BASE_DIR, "myPolish/Frontend/www/assets/less"),
-	os.path.join(BASE_DIR, "myPolish/Frontend/www/assets/images")
+	os.path.join(BASE_DIR, "polish/static_files"),
 )
 
 STATIC_URL = '/static/'

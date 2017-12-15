@@ -9,7 +9,7 @@ var API = require('./API');
 
 function initialise(data) {
     $temp.html('');
-    var lessons = Templates.Lessons_Map({title:'Уроки', lessons: data.lessons, tests: data.tests, level: data.level});
+    var lessons = Templates.Lessons_Map({title:'Уроки', lessons: data.lessons, tests: data.tests, level: data.level, username: data.username});
     $nodeMap = $(lessons);
 
     $temp.append($nodeMap);

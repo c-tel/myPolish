@@ -218,7 +218,7 @@ def get_lessons_info(user):
 			'id' : test.num
 		})
 	print(tests_info)
-	return {'lessons' : lessons_info, 'tests': tests_info , 'level' : level} 
+	return {'lessons' : lessons_info, 'tests': tests_info , 'level' : level, 'username' : user.username} 
 	
 def review(user):
 	quizes = []
