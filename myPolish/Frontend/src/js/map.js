@@ -20,7 +20,7 @@ function addListener(level) {
         API.backendPost('/api/review/', {}, function (err, data) {
             if (!err) {
                 if(data.tests.length)
-                    Tests.testTemp(data);
+                    Tests.testTemp(data, true);
                 else {
                     $nodeMap.find('.alert').fadeIn(800, function () {
                         $nodeMap.find('.alert').fadeOut(3000);
@@ -66,7 +66,7 @@ function addListener(level) {
         API.backendPost('/api/test/', data, function (err, data) {
             if (!err) {
                 if (data.status === "ok")
-                    Tests.testTemp(data);
+                    Tests.testTemp(data, false);
             }
             else
                 alert('Error');

@@ -3,9 +3,9 @@ var API = require('./API');
 var Map = require('./map');
 var $temp = $('#template');
 
-function testTemp(data) {
+function testTemp(data, bool) {
     var numb = 0;
-    drawWordTest(numb, data);
+    drawWordTest(numb, data, bool);
 }
 
 function findRightWord(data) {
@@ -15,7 +15,7 @@ function findRightWord(data) {
     }
 }
 
-function drawWordTest(numb, data) {
+function drawWordTest(numb, data, bool) {
     $temp.html("");
     var html_code;
     if(data.type === "grammar") {
@@ -40,14 +40,21 @@ function drawWordTest(numb, data) {
     });
 
     $nodeT.find('#finish-test').click(function () {
-        API.backendPost('/api/finish/',{id: data.id},function (err, data) {
-            if(!err){
-                API.backendPost('/api/init/', {}, function (err, data) {
-                    if (!err)
-                        Map.initialiseMap(data);
-                });
-            }
-        });
+        if(!bool) {
+            API.backendPost('/api/finish/', {id: data.id}, function (err, data) {
+                if (!err) {
+                    API.backendPost('/api/init/', {}, function (err, data) {
+                        if (!err)
+                            Map.initialiseMap(data);
+                    });
+                }
+            });
+        } else {
+            API.backendPost('/api/init/', {}, function (err, data) {
+                if (!err)
+                    Map.initialiseMap(data);
+            });
+        }
 
     });
 
@@ -73,7 +80,7 @@ function drawWordTest(numb, data) {
                 setTimeout(function () {
                     numb++;
                     $('.test').fadeOut(300, function () {
-                        drawWordTest(numb, data);
+                        drawWordTest(numb, data, bool);
                         $('.test').fadeIn(300);
                     });
                 }, 1100);
@@ -87,7 +94,7 @@ function drawWordTest(numb, data) {
         if(numb) {
             numb--;
             $('.test').fadeOut(300, function () {
-                drawWordTest(numb, data);
+                drawWordTest(numb, data, bool);
                 $('.test').fadeIn(300);
             });
         }

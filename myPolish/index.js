@@ -171,7 +171,7 @@ function addListener(level) {
         API.backendPost('/api/review/', {}, function (err, data) {
             if (!err) {
                 if(data.tests.length)
-                    Tests.testTemp(data);
+                    Tests.testTemp(data, true);
                 else {
                     $nodeMap.find('.alert').fadeIn(800, function () {
                         $nodeMap.find('.alert').fadeOut(3000);
@@ -217,7 +217,7 @@ function addListener(level) {
         API.backendPost('/api/test/', data, function (err, data) {
             if (!err) {
                 if (data.status === "ok")
-                    Tests.testTemp(data);
+                    Tests.testTemp(data, false);
             }
             else
                 alert('Error');
@@ -233,9 +233,9 @@ var API = require('./API');
 var Map = require('./map');
 var $temp = $('#template');
 
-function testTemp(data) {
+function testTemp(data, bool) {
     var numb = 0;
-    drawWordTest(numb, data);
+    drawWordTest(numb, data, bool);
 }
 
 function findRightWord(data) {
@@ -245,7 +245,7 @@ function findRightWord(data) {
     }
 }
 
-function drawWordTest(numb, data) {
+function drawWordTest(numb, data, bool) {
     $temp.html("");
     var html_code;
     if(data.type === "grammar") {
@@ -270,14 +270,21 @@ function drawWordTest(numb, data) {
     });
 
     $nodeT.find('#finish-test').click(function () {
-        API.backendPost('/api/finish/',{id: data.id},function (err, data) {
-            if(!err){
-                API.backendPost('/api/init/', {}, function (err, data) {
-                    if (!err)
-                        Map.initialiseMap(data);
-                });
-            }
-        });
+        if(!bool) {
+            API.backendPost('/api/finish/', {id: data.id}, function (err, data) {
+                if (!err) {
+                    API.backendPost('/api/init/', {}, function (err, data) {
+                        if (!err)
+                            Map.initialiseMap(data);
+                    });
+                }
+            });
+        } else {
+            API.backendPost('/api/init/', {}, function (err, data) {
+                if (!err)
+                    Map.initialiseMap(data);
+            });
+        }
 
     });
 
@@ -303,7 +310,7 @@ function drawWordTest(numb, data) {
                 setTimeout(function () {
                     numb++;
                     $('.test').fadeOut(300, function () {
-                        drawWordTest(numb, data);
+                        drawWordTest(numb, data, bool);
                         $('.test').fadeIn(300);
                     });
                 }, 1100);
@@ -317,7 +324,7 @@ function drawWordTest(numb, data) {
         if(numb) {
             numb--;
             $('.test').fadeOut(300, function () {
-                drawWordTest(numb, data);
+                drawWordTest(numb, data, bool);
                 $('.test').fadeIn(300);
             });
         }
@@ -351,14 +358,16 @@ $("#signUp").click(function () {
         'username' : login,
         'password' : pwd
     };
-    API.backendPost('/signup/' ,data, function (err, data) {
-        if(!err){
-            if(data.status==="ok")
-                window.location.href = "/home";
-        }
-        else
-            alert('Error');
-    })
+    if(login==='' || pwd===''){
+        $('.error').css('visibility', 'visible');
+    }else {
+        API.backendPost('/signup/', data, function (err, data) {
+            if (!err) {
+                if (data.status === "ok")
+                    window.location.href = "/home";
+            }
+        })
+    }
 });
 
 $("#signIn").click(function () {

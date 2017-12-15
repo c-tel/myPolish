@@ -40,7 +40,8 @@
                         <div id="card">
                             <figure class="front">
                                 <h1 id="welcome">Welcome!</h1>
-                                <h6 id="error" class="text-danger" style="visibility: hidden">Неправильний логін або пароль. Спробуйте ще раз або зареєструйтеся.</h6>
+                                <div class="error text-danger" style="visibility: hidden">Заповніть всі поля!</div>
+                                <h6 id="error" class="text-danger" style="visibility: hidden; margin-top: 0">Неправильний логін або пароль. Спробуйте ще раз або зареєструйтеся.</h6>
                                 <form class="form" role="form" >
                                     <div class="form-group">
                                         <label class="sr-only" for="signin-username">Username</label>
@@ -61,6 +62,7 @@
 
                             <figure class="back" style="display: none;">
                                 <h1 style="font-family: 'Berkshire Swash', cursive; color: #448D76; padding-bottom: 5px">Sign Up</h1>
+                                <div class="error text-danger" style="visibility: hidden">Заповніть всі поля!</div>
                                     <div class="form-group" style="margin-bottom: 0;">
                                         <div class="input-group">
                                             <input type="text" class="form-control" id="signup-username" placeholder="Username">

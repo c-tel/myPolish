@@ -22,14 +22,16 @@ $("#signUp").click(function () {
         'username' : login,
         'password' : pwd
     };
-    API.backendPost('/signup/' ,data, function (err, data) {
-        if(!err){
-            if(data.status==="ok")
-                window.location.href = "/home";
-        }
-        else
-            alert('Error');
-    })
+    if(login==='' || pwd===''){
+        $('.error').css('visibility', 'visible');
+    }else {
+        API.backendPost('/signup/', data, function (err, data) {
+            if (!err) {
+                if (data.status === "ok")
+                    window.location.href = "/home";
+            }
+        })
+    }
 });
 
 $("#signIn").click(function () {
