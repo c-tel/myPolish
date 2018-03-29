@@ -21,7 +21,7 @@ class SessionManager(models.Manager):
 			return session.key
 		return None
 	def exit(self, session):
-		session.delete();
+		session.delete()
 	
 
 class UsersProgress(models.Model):
