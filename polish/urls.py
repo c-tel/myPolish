@@ -32,5 +32,5 @@ urlpatterns = [
 	url(r'^api/init/$', lessons_info),
 	url(r'^api/day/$', day_count),
 	url(r'^api/review/$', brainstorm),
-	url(r'^api/drop/$', delete_prg)
+	url(r'^api/drop/$', delete_prg),
 ]
